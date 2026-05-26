@@ -159,7 +159,7 @@ async function main() {
         archive_sha256: receipt.archive_sha256,
         signature_url: signatureUrl,
         manifest_url: manifestUrl,
-        minimum_app_version: manifest.minimum_app_version || null,
+        minimum_app_version: manifest.minimum_app_version || "0.0.0",
         permissions_summary: permissionsSummary(manifest),
         withdrawn,
         withdrawn_reason,
