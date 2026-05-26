@@ -1,0 +1,104 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install minisign + jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y minisign jq
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Verify signing secrets are present
+        env:
+          MARKETPLACE_SIGNING_KEY: ${{ secrets.MARKETPLACE_SIGNING_KEY }}
+          MARKETPLACE_SIGNING_PASSPHRASE: ${{ secrets.MARKETPLACE_SIGNING_PASSPHRASE }}
+        run: |
+          if [ -z "$MARKETPLACE_SIGNING_KEY" ] || [ -z "$MARKETPLACE_SIGNING_PASSPHRASE" ]; then
+            echo "::error::Missing MARKETPLACE_SIGNING_KEY or MARKETPLACE_SIGNING_PASSPHRASE secret."
+            echo "::error::See RUNBOOK.md §Initial key generation."
+            exit 1
+          fi
+
+      - name: Lint all submissions
+        run: node scripts/lint-submission.mjs
+
+      - name: Build all plugins
+        run: |
+          find plugins -name '*.toml' | while IFS= read -r f; do
+            id=$(dirname "$f" | sed 's|plugins/||')
+            version=$(basename "$f" .toml)
+            echo "::group::Build $id@$version"
+            node scripts/build-plugin.mjs --id "$id" --version "$version"
+            echo "::endgroup::"
+          done
+
+      - name: Restore signing key
+        env:
+          MARKETPLACE_SIGNING_KEY: ${{ secrets.MARKETPLACE_SIGNING_KEY }}
+        run: |
+          echo "$MARKETPLACE_SIGNING_KEY" > "$RUNNER_TEMP/sign.key"
+          chmod 600 "$RUNNER_TEMP/sign.key"
+
+      - name: Sign all archives
+        env:
+          MARKETPLACE_SIGNING_PASSPHRASE: ${{ secrets.MARKETPLACE_SIGNING_PASSPHRASE }}
+        run: |
+          find dist -name build-receipt.json | while IFS= read -r receipt; do
+            artifact=$(jq -r .artifact "$receipt")
+            archive="$(dirname "$receipt")/$artifact"
+            echo "::group::Sign $archive (production key)"
+            echo "$MARKETPLACE_SIGNING_PASSPHRASE" | node scripts/sign-plugin.mjs --archive "$archive" --key "$RUNNER_TEMP/sign.key"
+            echo "::endgroup::"
+          done
+
+      - name: Generate index + assemble public/
+        run: node scripts/build-index.mjs
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          cname: marketplace.mallardmud.app
+
+      - name: Smoke-fetch the deployed catalog
+        run: |
+          echo "Waiting 30s for GitHub Pages to propagate..."
+          sleep 30
+          if ! curl -fsSL https://marketplace.mallardmud.app/index.json > /tmp/deployed.json; then
+            echo "::warning::Catalog fetch failed — check Pages config + DNS + cert."
+            exit 0
+          fi
+          echo "Deployed catalog:"
+          jq '{version, generated_at, plugin_count: (.plugins | length)}' /tmp/deployed.json
+
+      - name: Clean up key from runner tempdir
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/sign.key" ]; then
+            shred -u "$RUNNER_TEMP/sign.key" 2>/dev/null || rm -f "$RUNNER_TEMP/sign.key"
+          fi

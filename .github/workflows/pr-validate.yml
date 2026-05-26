@@ -1,0 +1,101 @@
+name: PR validate
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install minisign
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y minisign jq
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint changed submissions
+        run: node scripts/lint-submission.mjs --changed
+
+      - name: Build each changed submission
+        run: |
+          changed=$(git diff --name-only --diff-filter=AM origin/${{ github.base_ref }} -- 'plugins/*.toml' 'plugins/**/*.toml' || true)
+          if [ -z "$changed" ]; then
+            echo "No submission files changed; nothing to build."
+            exit 0
+          fi
+          echo "$changed" | while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            id=$(dirname "$f" | sed 's|plugins/||')
+            version=$(basename "$f" .toml)
+            echo "::group::Build $id@$version"
+            node scripts/build-plugin.mjs --id "$id" --version "$version"
+            echo "::endgroup::"
+          done
+
+      - name: Dry-run sign (test key)
+        run: |
+          if [ ! -d dist ]; then
+            echo "No dist/ — nothing was built."
+            exit 0
+          fi
+          find dist -name build-receipt.json | while IFS= read -r receipt; do
+            artifact=$(jq -r .artifact "$receipt")
+            archive="$(dirname "$receipt")/$artifact"
+            echo "::group::Sign $archive (test key)"
+            echo "" | node scripts/sign-plugin.mjs --archive "$archive" --key tests/fixtures/test_minisign.key
+            echo "::endgroup::"
+          done
+
+      - name: Generate staging index
+        run: |
+          if [ -d dist ]; then
+            node scripts/build-index.mjs --staging
+          fi
+
+      - name: Post scan-warning comment summary
+        if: always()
+        run: |
+          if [ ! -d dist ]; then exit 0; fi
+          echo "## Build summary" > $GITHUB_STEP_SUMMARY
+          find dist -name build-receipt.json | while IFS= read -r receipt; do
+            id=$(jq -r .id "$receipt")
+            version=$(jq -r .version "$receipt")
+            sha=$(jq -r .archive_sha256 "$receipt")
+            size=$(jq -r .archive_size "$receipt")
+            warnings=$(jq '.scan_warnings | length' "$receipt")
+            echo "- **${id}@${version}** — sha256 \`${sha:0:16}…\`, ${size} bytes, ${warnings} scan warning(s)" >> $GITHUB_STEP_SUMMARY
+            if [ "$warnings" -gt 0 ]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "<details><summary>Scan warnings</summary>" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo '```json' >> $GITHUB_STEP_SUMMARY
+              jq .scan_warnings "$receipt" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              echo "</details>" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: Upload artifacts for curator review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.event.pull_request.number }}
+          path: dist/
+          if-no-files-found: ignore
+          retention-days: 14
