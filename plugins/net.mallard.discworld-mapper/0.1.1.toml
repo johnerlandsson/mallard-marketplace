@@ -1,4 +1,4 @@
-# Requires the v0.1.1 tag to exist on wizardquack/mallard-discworld-mapper.
+# Requires the v0.1.1 tag to exist on wizardquack/mallardx-discworld-mapper.
 # The mapper has `discworld-mapper.mallardx` committed in-tree alongside
 # the source, but the marketplace pipeline rebuilds from source — the
 # committed archive bytes are not trusted. The build below recreates the
@@ -9,11 +9,11 @@
 # `RUNBOOK.md` §Bootstrap.
 
 [source]
-repo     = "wizardquack/mallard-discworld-mapper"
+repo     = "wizardquack/mallardx-discworld-mapper"
 ref      = "v0.1.1"
 build    = "rm -f discworld-mapper.mallardx && zip -qr discworld-mapper.mallardx plugin.toml src ui"
 artifact = "discworld-mapper.mallardx"
 
 [meta]
-homepage = "https://github.com/wizardquack/mallard-discworld-mapper"
+homepage = "https://github.com/wizardquack/mallardx-discworld-mapper"
 tags     = ["discworld", "mapper", "panel"]

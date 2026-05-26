@@ -158,10 +158,10 @@ Open a PR in `wizardquack/mallard`, merge. Cut a Mallard release that includes t
 
 ### 1.8 Cut the mapper's first tag
 
-The bootstrap submission references `v0.1.1` of `wizardquack/mallard-discworld-mapper`. Cut it:
+The bootstrap submission references `v0.1.1` of `wizardquack/mallardx-discworld-mapper`. Cut it:
 
 ```sh
-cd ~/code/mallard-discworld-mapper
+cd ~/code/mallardx-discworld-mapper
 # Confirm plugin.toml says version = "0.1.1" (or matching whatever the bootstrap submission targets)
 grep '^version' plugin.toml
 git tag -a v0.1.1 -m "First marketplace-published release"
