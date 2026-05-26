@@ -1,0 +1,6 @@
+# Every change under plugins/, scripts/, or .github/ requires the maintainer's review.
+# Branch protection on `main` enforces this rule.
+plugins/        @wizardquack
+scripts/        @wizardquack
+.github/        @wizardquack
+RUNBOOK.md      @wizardquack

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+public/
+*.log
+.DS_Store
+
+# Local dry-run scratch
+.dry-run/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
