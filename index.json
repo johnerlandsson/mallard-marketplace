@@ -19,9 +19,9 @@
       "versions": [
         {
           "version": "0.1.1",
-          "published_at": "2026-05-26T22:54:21.593Z",
+          "published_at": "2026-05-26T23:21:38.714Z",
           "archive_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
-          "archive_sha256": "e42590291f47a3faa3814ea7fa765c12659c47058ffa255f6b44bab3fe2d3ca4",
+          "archive_sha256": "ac799493ed181923c17753850793237e2bec387031ee78ef1fb5c9649a34e33f",
           "signature_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
           "manifest_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
