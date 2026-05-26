@@ -7,7 +7,7 @@ This repo hosts:
 - A **static `index.json` catalog** of available plugins, generated from submissions in `plugins/`.
 - **Per-version `.mallardx` archives** + **detached `.minisig` signatures** under `archives/<id>/<version>/`.
 
-Both are published to **<https://marketplace.mallardmud.app>** via GitHub Pages. Mallard's marketplace client (Plan #16, shipped) fetches the catalog from this URL and verifies each archive against an embedded marketplace public key before installing.
+Both are published to **<https://mallard-marketplace.vnsf.xyz>** via GitHub Pages. Mallard's marketplace client (Plan #16, shipped) fetches the catalog from this URL and verifies each archive against an embedded marketplace public key before installing.
 
 ## Trust model
 

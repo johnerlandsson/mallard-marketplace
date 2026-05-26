@@ -19,7 +19,7 @@ const REPO_ROOT = resolve(import.meta.dirname, "..");
 const PLUGINS_DIR = join(REPO_ROOT, "plugins");
 const DIST_DIR = join(REPO_ROOT, "dist");
 
-const DEFAULT_BASE_URL = "https://marketplace.mallardmud.app";
+const DEFAULT_BASE_URL = "https://mallard-marketplace.vnsf.xyz";
 const SCHEMA_VERSION = 1;
 
 function parseArgs() {

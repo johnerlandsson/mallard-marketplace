@@ -70,28 +70,48 @@ In the repo settings → Pages:
 
 - **Source**: `Deploy from a branch`
 - **Branch**: `gh-pages` / `/ (root)`
-- **Custom domain**: `marketplace.mallardmud.app`
+- **Custom domain**: `mallard-marketplace.vnsf.xyz`
 - **Enforce HTTPS**: ✓
 
-The `gh-pages` branch is created automatically by the first successful publish workflow run; you may need to come back to this step after step 1.7 completes.
+The `gh-pages` branch is created automatically by the first successful publish workflow run; you may need to come back to this step after step 1.7 completes. GitHub Pages may also refuse the custom domain until DNS in §1.5 resolves — set up §1.5 first, then come back here.
 
-### 1.5 Configure DNS
+### 1.5 Configure DNS (Namecheap)
 
-At the domain registrar managing `mallardmud.app`:
+The publish domain is the subdomain `mallard-marketplace.vnsf.xyz`. We delegate only that one subdomain to GitHub Pages; the apex `vnsf.xyz` and any other subdomains are untouched.
 
-```
-Type:  CNAME
-Name:  marketplace
-Value: wizardquack.github.io
-TTL:   3600 (or shorter for faster propagation during setup)
-```
+In Namecheap:
 
-Wait for propagation. Verify:
+1. Sign in → **Domain List** → click **Manage** next to `vnsf.xyz`.
+2. Open the **Advanced DNS** tab.
+3. Click **Add New Record**.
+4. Set:
+   - **Type**: `CNAME Record`
+   - **Host**: `mallard-marketplace`  ← just the subdomain label, NOT the full FQDN; Namecheap appends `.vnsf.xyz` automatically
+   - **Value**: `wizardquack.github.io.`  ← trailing dot optional; Namecheap normalizes it
+   - **TTL**: `Automatic` (or `5 min` while setting up so changes propagate fast; bump to `Automatic` once stable)
+5. Click the green checkmark to save.
+
+That's the only DNS change. Do **not**:
+
+- Add A records for the apex `vnsf.xyz` pointing at GitHub Pages IPs — we're not using the apex, so leave it alone.
+- Add a CNAME on `@` (the apex) — would break everything else on `vnsf.xyz`.
+- Add a wildcard `*` CNAME — overscope; only the named subdomain should route here.
+
+Wait for propagation (usually under 5 min on Namecheap with TTL=Automatic; can be up to an hour). Verify:
 
 ```sh
-dig +short marketplace.mallardmud.app
+dig +short mallard-marketplace.vnsf.xyz
 # Expected: wizardquack.github.io.
+#           185.199.108.153
+#           185.199.109.153
+#           185.199.110.153
+#           185.199.111.153
+# (The CNAME resolves to GitHub Pages' canonical IPs; this is correct.)
 ```
+
+If `dig` returns no result, give it longer. If it returns something else (like NXDOMAIN), the record didn't save — go back to step 5.
+
+Once DNS resolves, return to §1.4 in the GitHub Pages UI, enter `mallard-marketplace.vnsf.xyz` as the custom domain, and tick "Enforce HTTPS." Pages will provision a Let's Encrypt cert automatically (takes a few minutes to an hour after DNS resolves).
 
 ### 1.6 Configure branch protection on `main`
 
@@ -175,7 +195,7 @@ If the secrets weren't set when the initial push happened, the first publish wor
 - An empty commit: `git commit --allow-empty -m "Trigger publish after secrets" && git push`
 - A manual run: in the repo's Actions tab → Publish → "Run workflow"
 
-Watch the run. On success, `https://marketplace.mallardmud.app/index.json` returns the catalog and `/archives/net.mallard.discworld-mapper/0.1.1/` contains the `.mallardx` + `.minisig`.
+Watch the run. On success, `https://mallard-marketplace.vnsf.xyz/index.json` returns the catalog and `/archives/net.mallard.discworld-mapper/0.1.1/` contains the `.mallardx` + `.minisig`.
 
 ### 1.10 Smoke-install from Mallard
 
@@ -359,7 +379,7 @@ The cost of losing the private key: a forced fast rotation with a coordinated Ma
 
 ### Custom domain says "DNS check failed"
 
-- Verify CNAME record: `dig +short marketplace.mallardmud.app` should return `wizardquack.github.io.`
+- Verify CNAME record: `dig +short mallard-marketplace.vnsf.xyz` should return `wizardquack.github.io.`
 - Wait for DNS propagation (up to 24h, usually under an hour).
 - In Pages settings, click "Check again" once DNS resolves.
 
@@ -372,7 +392,7 @@ The cost of losing the private key: a forced fast rotation with a coordinated Ma
 ### `index.json` is stale after a successful publish
 
 - GitHub Pages CDN can take 1–10 minutes to invalidate.
-- `curl -fsSL "https://marketplace.mallardmud.app/index.json?cb=$(date +%s)"` (cache-buster query string forces a re-fetch).
+- `curl -fsSL "https://mallard-marketplace.vnsf.xyz/index.json?cb=$(date +%s)"` (cache-buster query string forces a re-fetch).
 - The publish workflow's smoke step already runs a `curl` 30 seconds after deploy; if that passed, the catalog is live.
 
 ### Mallard client sees signature failures after a deploy

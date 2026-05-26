@@ -83,13 +83,13 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          cname: marketplace.mallardmud.app
+          cname: mallard-marketplace.vnsf.xyz
 
       - name: Smoke-fetch the deployed catalog
         run: |
           echo "Waiting 30s for GitHub Pages to propagate..."
           sleep 30
-          if ! curl -fsSL https://marketplace.mallardmud.app/index.json > /tmp/deployed.json; then
+          if ! curl -fsSL https://mallard-marketplace.vnsf.xyz/index.json > /tmp/deployed.json; then
             echo "::warning::Catalog fetch failed — check Pages config + DNS + cert."
             exit 0
           fi
