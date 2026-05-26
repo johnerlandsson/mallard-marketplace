@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-26T15:53:25-07:00",
+  "generated_at": "2026-05-26T16:01:24-07:00",
   "plugins": [
     {
       "id": "net.mallard.discworld-mapper",
@@ -19,11 +19,11 @@
       "versions": [
         {
           "version": "0.1.1",
-          "published_at": "2026-05-26T23:21:38.714Z",
-          "archive_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
-          "archive_sha256": "ac799493ed181923c17753850793237e2bec387031ee78ef1fb5c9649a34e33f",
-          "signature_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
-          "manifest_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
+          "published_at": "2026-05-26T23:22:47.120Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
+          "archive_sha256": "0d2b7417dffeb0ae42c1262f7af5d607a6f07dd489383edb38c60134567def99",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
           "permissions_summary": {
             "sends": false,
