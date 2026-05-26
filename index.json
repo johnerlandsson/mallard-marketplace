@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-26T15:53:25-07:00",
+  "plugins": [
+    {
+      "id": "net.mallard.discworld-mapper",
+      "name": "Discworld Mapper",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-mapper",
+      "tags": [
+        "discworld",
+        "mapper",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.1.1",
+          "published_at": "2026-05-26T22:54:21.593Z",
+          "archive_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
+          "archive_sha256": "e42590291f47a3faa3814ea7fa765c12659c47058ffa255f6b44bab3fe2d3ca4",
+          "signature_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
+          "manifest_url": "https://marketplace.mallardmud.app/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.info",
+              "room.info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    }
+  ]
+}
