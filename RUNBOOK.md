@@ -121,7 +121,38 @@ pub const MARKETPLACE_PUBKEY: &str = "untrusted comment: minisign public key 1A2
 RWQ...real-base64-key-data...";
 ```
 
-Also add the guard test from the Plan #16b spec §5.2 (asserts `MARKETPLACE_PUBKEY != test fixture pubkey`).
+Also add the following guard test at the bottom of `src-tauri/src/marketplace/mod.rs`. It asserts that `MARKETPLACE_PUBKEY` differs from the test fixture pubkey in release builds — the safety net that prevents shipping the test key to real users:
+
+```rust
+#[cfg(test)]
+mod release_guard {
+    use super::MARKETPLACE_PUBKEY;
+
+    /// Release builds (`cargo test --release`) fail loudly if `MARKETPLACE_PUBKEY`
+    /// is still the test fixture key. Debug builds skip — local dev still
+    /// uses the fixture via `include_str!` and shouldn't fail.
+    #[test]
+    #[cfg_attr(debug_assertions, ignore)]
+    fn marketplace_pubkey_differs_from_test_fixture() {
+        let test_fixture = include_str!("../../tests/fixtures/marketplace/test_minisign.pub");
+        assert_ne!(
+            MARKETPLACE_PUBKEY.trim(),
+            test_fixture.trim(),
+            "MARKETPLACE_PUBKEY is still the test fixture key — production builds would accept test-key-signed archives. Replace with the real key from #16b before release.",
+        );
+    }
+}
+```
+
+Run it locally to confirm it fires when the pubkey hasn't been swapped:
+
+```sh
+cd ~/code/mallard
+cargo test --manifest-path src-tauri/Cargo.toml --release \
+  -p mallard-lib marketplace::release_guard:: -- --include-ignored
+# Expected after the swap: passes.
+# Expected if you forgot the swap: fails with the assertion message.
+```
 
 Open a PR in `wizardquack/mallard`, merge. Cut a Mallard release that includes this change. **Until this is done, marketplace-installed plugins won't verify against the catalog (Mallard is still trusting the test key).**
 
