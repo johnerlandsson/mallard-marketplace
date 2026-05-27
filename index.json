@@ -1,7 +1,43 @@
 {
   "version": 1,
-  "generated_at": "2026-05-26T16:01:24-07:00",
+  "generated_at": "2026-05-27T06:52:03-07:00",
   "plugins": [
+    {
+      "id": "net.mallard.discworld-autocols",
+      "name": "Discworld Autocols",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-autocols",
+      "tags": [
+        "discworld"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.1.1",
+          "published_at": "2026-05-27T14:05:22.809Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx",
+          "archive_sha256": "c4da671b066415fdacbbc89655f646fdaf62398eaa768468bf5c3bf970b8c1a8",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
     {
       "id": "net.mallard.discworld-mapper",
       "name": "Discworld Mapper",
@@ -19,9 +55,9 @@
       "versions": [
         {
           "version": "0.1.1",
-          "published_at": "2026-05-26T23:22:47.120Z",
+          "published_at": "2026-05-27T14:05:21.937Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
-          "archive_sha256": "0d2b7417dffeb0ae42c1262f7af5d607a6f07dd489383edb38c60134567def99",
+          "archive_sha256": "35071fd6985eadf24f93a014d1d07110f871ac67ecdcdef4abcd2d26ade1a718",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
