@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-29T13:59:48-07:00",
+  "generated_at": "2026-06-01T10:05:33-07:00",
   "plugins": [
     {
       "id": "net.mallard.discworld-autocols",
@@ -17,9 +17,9 @@
       "versions": [
         {
           "version": "0.1.2",
-          "published_at": "2026-05-29T21:12:45.724Z",
+          "published_at": "2026-06-01T17:08:12.298Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/discworld-autocols.mallardx",
-          "archive_sha256": "f0c80d7c255ed471562c6fd5ffddd8ba1d234580e8571327a8cbb81c24b574d2",
+          "archive_sha256": "0976a3cd427134485cae7f104bd4e68d08001c1e3adea77fdcee39bc11eecd5c",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/discworld-autocols.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -38,9 +38,9 @@
         },
         {
           "version": "0.1.1",
-          "published_at": "2026-05-29T21:12:46.604Z",
+          "published_at": "2026-06-01T17:08:12.798Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx",
-          "archive_sha256": "cc88a834bcb5d44fc942e37af3c47e692d8f723c8826f2e1181053e82de981c5",
+          "archive_sha256": "b6b8acb112590c15279465f451f3497bac6699003e35f39d9508ee796d3ed84e",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -76,9 +76,9 @@
       "versions": [
         {
           "version": "0.1.1",
-          "published_at": "2026-05-29T21:12:44.847Z",
+          "published_at": "2026-06-01T17:08:11.731Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
-          "archive_sha256": "1d84b1974635d752fbc8696aba46242fa6a303753a291c993810391111c56852",
+          "archive_sha256": "e903822311903a1eb903abb7bdfa9d0580df0424b94079edbd5907edd3af4741",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -87,6 +87,48 @@
             "gmcp_access": [
               "char.info",
               "room.info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.mallard.discworld-vitals",
+      "name": "Discworld Vitals",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-vitals",
+      "tags": [
+        "discworld",
+        "panel",
+        "vitals"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.4.1",
+          "published_at": "2026-06-01T17:08:13.339Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/discworld-vitals.mallardx",
+          "archive_sha256": "411fe598af00e1dcb3476650ecab35d384df5232d8af21c57a1dfff530787874",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/discworld-vitals.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.vitals",
+              "char.info",
+              "char.info.*"
             ],
             "notifications": false,
             "keychain": false,
