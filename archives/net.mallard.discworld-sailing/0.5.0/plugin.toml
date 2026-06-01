@@ -1,0 +1,18 @@
+id = "net.mallard.discworld-sailing"
+name = "Discworld Sailing"
+version = "0.5.0"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.0.1"
+authors = ["mallard examples"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[panels.sailing]
+title              = "Sailing"
+entry              = "ui/sailing.html"
+default_dock       = "right"
+default_size       = { width = 240, height = 240 }
