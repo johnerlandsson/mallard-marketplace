@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-01T10:05:24-07:00",
+  "generated_at": "2026-06-01T10:05:09-07:00",
   "plugins": [
     {
       "id": "net.mallard.discworld-autocols",
@@ -17,9 +17,9 @@
       "versions": [
         {
           "version": "0.1.2",
-          "published_at": "2026-06-01T17:09:18.667Z",
+          "published_at": "2026-06-01T17:10:32.697Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/discworld-autocols.mallardx",
-          "archive_sha256": "1ef4eee4c2229b9f826b526a6a9726f4fcb7351d95dc3a01c80c8b727b412b35",
+          "archive_sha256": "1fe2ffa1822ffaf443df33afbce17e61808284ff008d292f222b5a2d0562ce00",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/discworld-autocols.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.2/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -38,9 +38,9 @@
         },
         {
           "version": "0.1.1",
-          "published_at": "2026-06-01T17:09:19.177Z",
+          "published_at": "2026-06-01T17:10:33.182Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx",
-          "archive_sha256": "26d8087aa21775f8d17c806c2489ad52e1bf24129216f4bb54f0910628c3ccec",
+          "archive_sha256": "5a3ea3dabd322dba73b878ea0bad36e3c9ea02feccde90afa48dd5c893f442f7",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/discworld-autocols.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -48,6 +48,120 @@
             "sends": true,
             "gmcp_access": [],
             "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.mallard.discworld-chat",
+      "name": "Discworld Chat",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-chat",
+      "tags": [
+        "discworld",
+        "panel",
+        "chat"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.1.0",
+          "published_at": "2026-06-01T17:10:35.772Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.1.0/discworld-chat.mallardx",
+          "archive_sha256": "95de46921c9075cb804d978288e56edd5e68ab76f913343912ccba2cb961967e",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.1.0/discworld-chat.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.1.0/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.mallard.discworld-grouping",
+      "name": "Discworld Grouping",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-grouping",
+      "tags": [
+        "discworld",
+        "panel",
+        "group"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.1.0",
+          "published_at": "2026-06-01T17:10:34.758Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-grouping/0.1.0/discworld-grouping.mallardx",
+          "archive_sha256": "2a65ac100055560857c0734df0d45f810394d096ca5631158efc31d81b7234e5",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-grouping/0.1.0/discworld-grouping.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-grouping/0.1.0/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.mallard.discworld-magic",
+      "name": "Discworld Magic",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/wizardquack/mallardx-discworld-magic",
+      "tags": [
+        "discworld",
+        "highlights",
+        "magic"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "versions": [
+        {
+          "version": "0.4.0",
+          "published_at": "2026-06-01T17:10:34.195Z",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.4.0/discworld-magic.mallardx",
+          "archive_sha256": "9c691054532ac655f746b0c46ee1c96a2cf5f85673be16193358ebb3a996f453",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.4.0/discworld-magic.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.4.0/plugin.toml",
+          "minimum_app_version": "0.0.1",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [],
+            "notifications": true,
             "keychain": false,
             "network": [],
             "filesystem": [],
@@ -76,9 +190,9 @@
       "versions": [
         {
           "version": "0.1.1",
-          "published_at": "2026-06-01T17:09:18.143Z",
+          "published_at": "2026-06-01T17:10:32.186Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx",
-          "archive_sha256": "b0e80596990501951d26b2c1bea75db6b2d71cce931f82975795c086031ba6cb",
+          "archive_sha256": "bd78296460044838285c80b2ec71bfbd102cdf5574a43ebc2880eb002036c4a2",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/discworld-mapper.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-mapper/0.1.1/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -116,9 +230,9 @@
       "versions": [
         {
           "version": "0.3.0",
-          "published_at": "2026-06-01T17:09:20.250Z",
+          "published_at": "2026-06-01T17:10:35.237Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.3.0/discworld-misc.mallardx",
-          "archive_sha256": "cb6789da325e836de5b71a55b98e8f7c833b8cc511f73faefadc427ad7de0ed1",
+          "archive_sha256": "4fa8811d39434e0a0df7c694716e3d452ccdba4921be2505aaf13e0c0865ad49",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.3.0/discworld-misc.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.3.0/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -154,9 +268,9 @@
       "versions": [
         {
           "version": "0.5.0",
-          "published_at": "2026-06-01T17:09:20.848Z",
+          "published_at": "2026-06-01T17:10:36.288Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.5.0/discworld-sailing.mallardx",
-          "archive_sha256": "797d53dece7c8653a8442a7e33813454559b22a9351153fd72e1689e66592d67",
+          "archive_sha256": "61fadd809c3050714425fa4705082b07cfb193cc2a8d61e904914f5a917eff6a",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.5.0/discworld-sailing.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.5.0/plugin.toml",
           "minimum_app_version": "0.0.1",
@@ -192,9 +306,9 @@
       "versions": [
         {
           "version": "0.4.1",
-          "published_at": "2026-06-01T17:09:19.704Z",
+          "published_at": "2026-06-01T17:10:33.687Z",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/discworld-vitals.mallardx",
-          "archive_sha256": "3a06bf649dd32caa40458e9d1b73892233d36ded59e1019d8d816332ddcdc529",
+          "archive_sha256": "f364c5563ec468658bd8d2b1ba4e51b179dec1ad416a4310f52790a3ca3e4bce",
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/discworld-vitals.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.4.1/plugin.toml",
           "minimum_app_version": "0.0.1",

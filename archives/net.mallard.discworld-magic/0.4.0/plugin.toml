@@ -1,0 +1,16 @@
+id = "net.mallard.discworld-magic"
+name = "Discworld Magic"
+version = "0.4.0"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.0.1"
+authors = ["mallard examples"]
+license = "MIT"
+
+[permissions]
+notifications = true
+sends = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]

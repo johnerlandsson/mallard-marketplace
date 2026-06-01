@@ -1,0 +1,24 @@
+id = "net.mallard.discworld-grouping"
+name = "Discworld Grouping"
+version = "0.1.0"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.0.1"
+authors = ["mallard examples"]
+license = "MIT"
+
+[permissions]
+sends = true   # refresh button sends `gs` to the world
+# No `gmcp_access` — self-identity comes from discworld-vitals, which
+# mirrors `char.info` into the world var namespace (`char.info.<key>`)
+# and emits `net.mallard.discworld.char_info` on every frame.
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[panels.group]
+title              = "Group"
+entry              = "ui/group.html"
+default_dock       = "right"
+default_size       = { width = 240, height = 320 }
