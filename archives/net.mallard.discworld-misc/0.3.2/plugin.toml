@@ -1,0 +1,12 @@
+id = "net.mallard.discworld-misc"
+name = "Discworld Misc"
+version = "0.3.2"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.0.1"
+authors = ["mallard examples"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
