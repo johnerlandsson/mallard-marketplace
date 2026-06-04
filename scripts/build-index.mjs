@@ -10,7 +10,7 @@
 
 import { readFile, readdir, mkdir, copyFile, writeFile, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { execSync } from "node:child_process";
+import { execSync, execFileSync } from "node:child_process";
 import { resolve, join, relative } from "node:path";
 import toml from "@iarna/toml";
 import semver from "semver";
@@ -21,6 +21,8 @@ const DIST_DIR = join(REPO_ROOT, "dist");
 
 const DEFAULT_BASE_URL = "https://mallard-marketplace.vnsf.xyz";
 const SCHEMA_VERSION = 1;
+const README_MAX_BYTES = 64 * 1024;
+const README_TRUNCATION_MARKER = "\n\n…";
 
 function parseArgs() {
   const args = new Map();
@@ -53,6 +55,27 @@ async function readSubmission(id, version) {
   return toml.parse(await readFile(submissionPath, "utf8"));
 }
 
+/** Extract the top-level README.md from a `.mallardx` archive, truncating at
+ *  64 KB with a "\n\n…" marker. Returns `null` when the archive has no README.
+ *  The truncation is on a byte boundary; if it splits a UTF-8 codepoint
+ *  Node's decoder substitutes U+FFFD — that's a visible degradation but won't
+ *  crash the client. The host-side `read_plugin_readme` walks back to a char
+ *  boundary; we don't try to match that algorithm exactly. */
+function extractReadme(archivePath) {
+  try {
+    const out = execFileSync("unzip", ["-p", archivePath, "README.md"], {
+      encoding: "buffer",
+      stdio: ["ignore", "pipe", "ignore"],
+      maxBuffer: 8 * 1024 * 1024,
+    });
+    if (out.length === 0) return null;
+    if (out.length <= README_MAX_BYTES) return out.toString("utf8");
+    return out.slice(0, README_MAX_BYTES).toString("utf8") + README_TRUNCATION_MARKER;
+  } catch {
+    return null;
+  }
+}
+
 function permissionsSummary(manifest) {
   // Mirror Mallard's CatalogVersion::permissions_summary shape (Plan #16 spec §1).
   const p = manifest.permissions ?? {};
@@ -76,6 +99,13 @@ function validateCatalog(catalog) {
   for (const p of catalog.plugins) {
     if (!p.id || !p.name || !Array.isArray(p.versions) || p.versions.length === 0) {
       throw new Error(`plugin ${p.id || "<no id>"} missing required fields`);
+    }
+    // Defence-in-depth: the extractor truncates, but a bad future change
+    // could let a giant README through. The client side caps at the same
+    // size, so anything bigger is wasted bytes in index.json.
+    if (typeof p.latest_readme === "string"
+        && p.latest_readme.length > README_MAX_BYTES + README_TRUNCATION_MARKER.length) {
+      throw new Error(`${p.id} latest_readme exceeds 64KB cap (${p.latest_readme.length} bytes)`);
     }
     for (const v of p.versions) {
       if (!semver.valid(v.version)) throw new Error(`bad version: ${v.version}`);
@@ -135,6 +165,7 @@ async function main() {
     // Use the latest non-withdrawn version's manifest for per-plugin fields.
     let perPluginManifest = null;
     let perPluginSubmission = null;
+    let perPluginArchivePath = null;
     const catalogVersions = [];
 
     for (const v of vs) {
@@ -168,12 +199,15 @@ async function main() {
       if (!perPluginManifest && !withdrawn) {
         perPluginManifest = manifest;
         perPluginSubmission = submission;
+        perPluginArchivePath = join(v.dir, receipt.artifact);
       }
     }
 
     if (!perPluginManifest) {
       perPluginManifest = toml.parse(await readFile(join(vs[0].dir, "plugin.toml"), "utf8"));
       perPluginSubmission = await readSubmission(id, vs[0].version);
+      const fallbackReceipt = JSON.parse(await readFile(join(vs[0].dir, "build-receipt.json"), "utf8"));
+      perPluginArchivePath = join(vs[0].dir, fallbackReceipt.artifact);
     }
 
     catalogPlugins.push({
@@ -184,6 +218,9 @@ async function main() {
       homepage: perPluginSubmission.meta?.homepage || perPluginManifest.homepage || null,
       tags: perPluginSubmission.meta?.tags || [],
       worlds_match: perPluginManifest.worlds?.match || [],
+      license: perPluginManifest.license || null,
+      authors: perPluginManifest.authors || [],
+      latest_readme: perPluginArchivePath ? extractReadme(perPluginArchivePath) : null,
       versions: catalogVersions,
     });
   }

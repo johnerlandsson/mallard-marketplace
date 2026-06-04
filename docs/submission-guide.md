@@ -31,6 +31,16 @@ tags     = ["yourmud", "category", "panel"]        # lowercase + hyphen-safe
 
 Worked example: see [`plugins/net.mallard.discworld-mapper/0.1.1.toml`](../plugins/net.mallard.discworld-mapper/0.1.1.toml).
 
+### Optional but recommended: README and richer manifest fields
+
+The marketplace surfaces three additional pieces of information in Mallard's in-app **plugin details modal**, all sourced from your plugin's repo (not the submission TOML):
+
+- **`description`** in your `plugin.toml` (≤280 chars). One-line summary; renders as a subtitle on Browse cards, Installed rows, and the details modal header. Optional but strongly recommended — without it, your card looks bare next to plugins that have one.
+- **`license`** and **`authors`** in your `plugin.toml`. The modal's by-line renders `by <authors> · <license> · <homepage> ↗`. Each segment is hidden if its data is missing.
+- **`README.md` at the top level of your `.mallardx` archive** (≤64 KB markdown). Rendered into the details modal body. Supports GFM (tables, fenced code, links). Raw HTML is stripped, images become italic placeholders, and links open in the user's system browser. If your archive doesn't include a README, the modal shows "No README provided."
+
+If your README exceeds 64 KB, `build-index.mjs` truncates with a `\n\n…` marker and the catalog publishes the truncated form. Authors usually don't want this — keep the README focused on what users need before installing.
+
 ## Submitting
 
 1. **Fork** this repo.
