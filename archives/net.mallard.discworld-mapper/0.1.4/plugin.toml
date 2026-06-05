@@ -1,0 +1,25 @@
+id = "net.mallard.discworld-mapper"
+name = "Discworld Mapper"
+version = "0.1.4"
+description = "A minimal minimap plugin for Discworld."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.0.1"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+gmcp_access = ["char.info", "room.info"]
+
+[gmcp]
+advertise = ["char.info", "room.info"]
+
+[panels.map]
+title              = "Map"
+entry              = "ui/mapper.html"
+default_dock       = "right"
+default_size       = { width = 360, height = 360 }
