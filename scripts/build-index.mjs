@@ -221,7 +221,7 @@ async function main() {
       license: perPluginManifest.license || null,
       authors: perPluginManifest.authors || [],
       panels: Object.entries(perPluginManifest.panels || {})
-        .map(([id, decl]) => ({ id, title: decl.title })),
+        .map(([id, decl]) => ({ id, title: decl.title || id })),
       latest_readme: perPluginArchivePath ? extractReadme(perPluginArchivePath) : null,
       versions: catalogVersions,
     });
