@@ -61,7 +61,7 @@ The `PR validate` workflow runs five steps:
 1. **Lint** — validates your submission TOML against the schema. Fails on missing fields, malformed `repo` slug, branch-like `ref` values, etc.
 2. **Clone + build** — clones your `source.repo` at `source.ref`, runs `source.build` in the cloned dir, validates the produced `.mallardx`:
    - id + version inside the archive's `plugin.toml` match the submission
-   - archive size ≤ 10 MB (configurable but flagged for review)
+   - archive size ≤ 20 MB (configurable but flagged for review)
    - no `.git`, `node_modules`, nested archives, etc.
 3. **Scan** — grep heuristics for surprising patterns (Lua: `os.execute`, `io.popen`, `loadstring`, etc.; TS: `eval`, `child_process`). **Warn-only — never blocks**, but the curator will see warnings in the PR job summary and ask about anything that looks load-bearing.
 4. **Dry-run sign** — signs the built artifact with a test key, just to confirm the sign path works end-to-end. Production signing happens only on merge.

@@ -26,7 +26,7 @@ import extractZip from "extract-zip";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..");
 const PLUGINS_DIR = join(REPO_ROOT, "plugins");
-const DEFAULT_SIZE_CAP = 10 * 1024 * 1024; // 10 MB
+const DEFAULT_SIZE_CAP = 20 * 1024 * 1024; // 20 MB
 
 function parseArgs() {
   const args = new Map();
