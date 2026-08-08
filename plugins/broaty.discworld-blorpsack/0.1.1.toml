@@ -1,8 +1,8 @@
 [source]
 repo     = "johnerlandsson/broaty.discworld-blorpsack"
-ref      = "v0.1.0"
-build    = "rm -f discworld-blorpsack-0.1.0.mallardx && zip -r discworld-blorpsack-0.1.0.mallardx plugin.toml README.md src/ ui/"
-artifact = "discworld-blorpsack-0.1.0.mallardx"
+ref      = "v0.1.1"
+build    = "rm -f discworld-blorpsack-0.1.1.mallardx && zip -r discworld-blorpsack-0.1.1.mallardx plugin.toml README.md src/ ui/"
+artifact = "discworld-blorpsack-0.1.1.mallardx"
 
 [meta]
 homepage = "https://github.com/johnerlandsson/broaty.discworld-blorpsack"
