@@ -1,0 +1,10 @@
+[source]
+# Source commit: 485d829f7668c9df2e321193a19dbeb34001cb74 (synthetic test data only).
+repo = "bytechipper/beings-discworld-alias-helper"
+ref = "v1.1.0"
+build = "python3 scripts/build.py net.discworld.beings-discworld-alias-helper.mallardx"
+artifact = "net.discworld.beings-discworld-alias-helper.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-alias-helper"
+tags = ["discworld", "aliases", "utilities", "panel"]
